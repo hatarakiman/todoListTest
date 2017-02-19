@@ -1,10 +1,7 @@
 TODO list
 =================
 
-Angular
-Angular Material
-Jade, SCSS
-Gulp
+Angular, Angular Material, Jade, SCSS, Gulp
 
 
 Как запустить?
