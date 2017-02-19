@@ -1,0 +1,37 @@
+doctype html
+html(lang='ru')
+    head
+        meta(charset='UTF-8')
+        title Todo List
+        link(rel='stylesheet', href='https://necolas.github.io/normalize.css/3.0.3/normalize.css')
+        link(rel='stylesheet', type='text/css', href='//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css')
+        link(rel='stylesheet', type='text/css', href='css/style.css')
+    body(data-ng-app='ToDo')
+        .container(data-ng-controller='appController', layout='column')
+            md-toolbar.md-hue-2(layout-align='center center')
+                h1.md-title Список задач
+            md-content.todo__list(layout-align='left top', layout='row', layout-wrap, layout-fill, ng-cloak)
+                .todo__item(layout, layout-align='center center', ng-repeat='(id, item) in localStorage track by $index', ng-click='null', flex-gt-sm="23", flex-xs="100")
+                    .todo__text-case
+                        textarea.todo__text(ng-class="{'todo__text--done': item.status}", type='text', data-id='{{id}}', ng-model='item.text', ng-change="updateSticky(id, 'text', item.text)", autoresize, autofocus)
+                    md-card-actions.todo__actions-case
+                        md-button.md-fab.md-mini.todo__action-button.todo__check-button(ng-click="updateSticky(id, 'status', !item.status)", ng-class="{'todo__check-button--active': item.status}", aria-label='Check', md-colors="{background: 'green'}")
+                            ng-md-icon.todo__action-icon.todo__check(icon='check', size='24')
+                        md-button.md-fab.md-mini(ng-click='deleteSticky(id)', aria-label='Remove', md-colors="{background: 'red'}")
+                            ng-md-icon.todo__action-icon.todo__remove(icon='close', size='24')
+            md-button.md-fab.md-fab-bottom-right(md-colors="{background: 'green'}", aria-label='Add', ng-click='addSticky()')
+                ng-md-icon.todo__add(icon='add', size='36')
+
+        //build:js1(./dev/../) js/vendor.min.js
+        script(src='/node_modules/angular/angular.js')
+        script(src='/node_modules/angular-material-icons/angular-material-icons.js')
+        script(src='/node_modules/angular-animate/angular-animate.min.js')
+        script(src='/node_modules/angular-aria/angular-aria.min.js')
+        script(src='/node_modules/angular-material/angular-material.js')
+        //endbuild
+
+        //build:js(./dev/) js/script.min.js
+        script(src='js/app.js')
+        script(src='js/controllers/appController.js')
+        script(src='js/directives/autoresize.js')
+        //endbuild
